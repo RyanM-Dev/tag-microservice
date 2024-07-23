@@ -12,7 +12,9 @@ type Mysql struct {
 	db *gorm.DB
 }
 
-func (m *Mysql) NewDatabase(dsn string) (*gorm.DB, error) {
+var mysqlDB Mysql
+
+func (m *Mysql) NewMysqlDatabase(dsn string) (*gorm.DB, error) {
 	log.Println("Database created")
 	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {

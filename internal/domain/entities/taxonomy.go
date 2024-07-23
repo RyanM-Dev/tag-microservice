@@ -1,9 +1,9 @@
 package entities
 
 type Taxonomy struct {
-	ID               string
-	FromTagID        string
-	ToTagID          string
+	ID               uint
+	FromTagID        uint
+	ToTagID          uint
 	RelationshipKind string
 	State            string
 }

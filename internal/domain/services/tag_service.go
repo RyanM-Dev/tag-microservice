@@ -1,9 +1,12 @@
 package services
 
 import (
+	"errors"
 	"tagMicroservice/internal/domain/entities"
 	"tagMicroservice/internal/domain/repositories"
 )
+
+var ErrNoTagExistsWithThisID = errors.New("no tag exists with this ID")
 
 type TagService struct {
 	TagRepo repositories.TagRepository
@@ -25,11 +28,11 @@ func (s *TagService) DeleteTag(tag entities.Tag) error {
 	return s.TagRepo.Delete(tag)
 }
 
-func (s *TagService) FindTagByID(tagID string) (*entities.Tag, error) {
+func (s *TagService) FindTagByID(tagID uint) (*entities.Tag, error) {
 	return s.TagRepo.FindByID(tagID)
 
 }
 
-func (s *TagService) MergeTags(fromTagID, toTagID string) error {
+func (s *TagService) MergeTags(fromTagID, toTagID uint) error {
 	return s.TagRepo.Merge(fromTagID, toTagID)
 }

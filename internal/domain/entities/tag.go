@@ -1,10 +1,10 @@
 package entities
 
 type Tag struct {
-	ID          string
+	ID          uint
 	Title       string
 	Description string
 	Image       string
 	Key         string
-	State       string
+	State       bool
 }
