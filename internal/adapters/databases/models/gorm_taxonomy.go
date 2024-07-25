@@ -8,10 +8,12 @@ import (
 
 type GormTaxonomy struct {
 	gorm.Model
-	FromTagID        uint   `gorm:"not null"`
-	ToTagID          uint   `gorm:"not null"`
-	RelationshipKind string `gorm:"not null"`
-	State            string `gorm:"not null"`
+	FromTagID        uint    `gorm:"not null"`
+	FromTag          GormTag `gorm:"foreignKey:FromTagID"`
+	ToTagID          uint    `gorm:"not null"`
+	ToTag            GormTag `gorm:"foreignKey:ToTagID"`
+	RelationshipKind string  `gorm:"not null"`
+	State            string  `gorm:"not null"`
 }
 
 func (g GormTaxonomy) ToDomain() entities.Taxonomy {
@@ -24,7 +26,7 @@ func (g GormTaxonomy) ToDomain() entities.Taxonomy {
 	}
 }
 
-func TaxonomyFromDomain(taxonomy entities.Taxonomy) GormTaxonomy {
+func GormTaxonomyFromDomain(taxonomy entities.Taxonomy) GormTaxonomy {
 	return GormTaxonomy{
 		Model:            gorm.Model{ID: taxonomy.ID},
 		FromTagID:        taxonomy.FromTagID,

@@ -17,7 +17,7 @@ func (s *TaxonomyService) CreateTaxonomy(taxonomy *entities.Taxonomy) error {
 	return s.taxonomyRepo.Create(taxonomy)
 }
 
-func (s *TaxonomyService) GetTaxonomy(id uint) (*entities.Taxonomy, error) {
+func (s *TaxonomyService) GetTaxonomy(id uint) (entities.Taxonomy, error) {
 	return s.taxonomyRepo.FindByID(id)
 }
 

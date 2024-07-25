@@ -26,7 +26,7 @@ func (g GormTag) ToDomain() entities.Tag {
 	}
 }
 
-func TagFromDomain(tag entities.Tag) GormTag {
+func GormTagFromDomain(tag entities.Tag) GormTag {
 	return GormTag{
 		Model:       gorm.Model{ID: tag.ID},
 		Title:       tag.Title,

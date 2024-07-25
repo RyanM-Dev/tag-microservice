@@ -16,19 +16,19 @@ func NewTagService(repo repositories.TagRepository) *TagService {
 	return &TagService{TagRepo: repo}
 }
 
-func (s *TagService) CreateTag(tag entities.Tag) error {
+func (s *TagService) CreateTag(tag *entities.Tag) error {
 	return s.TagRepo.Create(tag)
 }
 
-func (s *TagService) UpdateTag(tag entities.Tag) error {
+func (s *TagService) UpdateTag(tag *entities.Tag) error {
 	return s.TagRepo.Update(tag)
 }
 
-func (s *TagService) DeleteTag(tag entities.Tag) error {
+func (s *TagService) DeleteTag(tag *entities.Tag) error {
 	return s.TagRepo.Delete(tag)
 }
 
-func (s *TagService) FindTagByID(tagID uint) (*entities.Tag, error) {
+func (s *TagService) FindTagByID(tagID uint) (entities.Tag, error) {
 	return s.TagRepo.FindByID(tagID)
 
 }
