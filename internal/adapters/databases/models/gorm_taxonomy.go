@@ -13,7 +13,7 @@ type GormTaxonomy struct {
 	ToTagID          uint    `gorm:"not null"`
 	ToTag            GormTag `gorm:"foreignKey:ToTagID"`
 	RelationshipKind string  `gorm:"not null"`
-	State            string  `gorm:"not null"`
+	State            bool
 }
 
 func (g GormTaxonomy) ToDomain() entities.Taxonomy {

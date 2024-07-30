@@ -87,41 +87,18 @@ func (r *TaxonomyRepository) UpdateTagReferences(fromTagID, toTagID uint) error 
 	return nil
 }
 
-// func (r *TaxonomyRepository) FindByKey(key string) ([]entities.Taxonomy, error) {
-// 	// var relatedTags []entities.Tag
-// 	var taxonomies []entities.Taxonomy
-// 	var gormTaxonomies []models.GormTaxonomy
-// 	var tag models.GormTag
+func (r *TaxonomyRepository) FindTaxonomiesByTagID(tagID uint) ([]entities.Taxonomy, error) {
+	// var relatedTags []entities.Tag
+	var taxonomies []entities.Taxonomy
+	var gormTaxonomies []models.GormTaxonomy
 
-// 	if err := mysqlDB.db.Where("key = ?", key).First(&tag).Error; err != nil {
-// 		if err == gorm.ErrRecordNotFound {
-// 			return []entities.Taxonomy{}, fmt.Errorf("no tag was found by key: %v", err)
-// 		}
-// 		return []entities.Taxonomy{}, fmt.Errorf("failed to find tag by key: %v", err)
-// 	}
-// 	if err := mysqlDB.db.Where("from_tag_id = ? ", tag.ID).Or("to_tag_id = ?", tag.ID).Find(&gormTaxonomies).Error; err != nil {
-// 		return []entities.Taxonomy{}, fmt.Errorf("failed to find taxonomy by key: %v", err)
-// 	}
-// 	for _, gormTaxonomy := range gormTaxonomies {
-// 		taxonomy := gormTaxonomy.ToDomain()
-// 		taxonomies = append(taxonomies, taxonomy)
-// 	}
-// 	return taxonomies, nil
+	if err := mysqlDB.db.Where("from_tag_id = ? ", tagID).Or("to_tag_id = ?", tagID).Find(&gormTaxonomies).Error; err != nil {
+		return []entities.Taxonomy{}, fmt.Errorf("failed to find taxonomy by key: %v", err)
+	}
+	for _, gormTaxonomy := range gormTaxonomies {
+		taxonomy := gormTaxonomy.ToDomain()
+		taxonomies = append(taxonomies, taxonomy)
+	}
+	return taxonomies, nil
 
-// 	for _, taxonomy := range gormTaxonomies {
-// 		var neededTagID uint
-// 		if taxonomy.ToTagID == tag.ID {
-// 			neededTagID = taxonomy.FromTagID
-// 		} else if taxonomy.FromTagID == tag.ID {
-// 			neededTagID = taxonomy.ToTagID
-// 		}
-// 		var tagRepository TagRepository
-
-// 		relatedTag, err := tagRepository.FindByID(neededTagID)
-// 		if err != nil {
-// 			return nil, err
-// 		}
-// 		relatedTags = append(relatedTags, relatedTag)
-// 	}
-// 	return relatedTags, nil
-// }
+}
