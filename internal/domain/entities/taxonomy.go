@@ -5,5 +5,5 @@ type Taxonomy struct {
 	FromTagID        uint
 	ToTagID          uint
 	RelationshipKind string //inclusion,key_value,synonym,antonym
-	State            string
+	State            bool
 }
