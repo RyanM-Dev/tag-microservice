@@ -21,14 +21,14 @@ func NewTagService(tagRepo repositories.TagRepository, taxonomyRepo repositories
 		TaxonomyRepo: taxonomyRepo,
 	}
 }
-func (s *TagService) CreateTagService(tag *entities.Tag) error {
+func (s *TagService) CreateTag(tag *entities.Tag) error {
 	if tag.Title == "" || tag.Description == "" {
 		return fmt.Errorf("tag title and description cannot be empty")
 	}
 	return s.TagRepo.Create(tag)
 }
 
-func (s *TagService) UpdateTagService(tag *entities.Tag) error {
+func (s *TagService) UpdateTag(tag *entities.Tag) error {
 	return s.TagRepo.Update(tag)
 }
 
@@ -64,7 +64,7 @@ func (s *TagService) GetRelatedTagsByKey(key string) ([]entities.Tag, error) {
 	}
 	taxonomies, err := s.TaxonomyRepo.FindTaxonomiesByTagID(tag.ID)
 	if err != nil {
-		return nil, fmt.Errorf("failed to find taxonomy with ID %s: %v", tag.ID, err)
+		return nil, fmt.Errorf("failed to find taxonomy with ID %d: %v", tag.ID, err)
 	}
 	for _, taxonomy := range taxonomies {
 		var relatedTag entities.Tag
@@ -91,7 +91,7 @@ func (s *TagService) GetRelatedTagsByID(id uint) ([]entities.Tag, error) {
 	}
 	taxonomies, err := s.TaxonomyRepo.FindTaxonomiesByTagID(tag.ID)
 	if err != nil {
-		return nil, fmt.Errorf("failed to find taxonomy with ID %s: %v", tag.ID, err)
+		return nil, fmt.Errorf("failed to find taxonomy with ID %d: %v", tag.ID, err)
 	}
 	for _, taxonomy := range taxonomies {
 		var relatedTag entities.Tag
