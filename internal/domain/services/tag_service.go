@@ -32,8 +32,9 @@ func (s *TagService) UpdateTag(tag *entities.Tag) error {
 	return s.TagRepo.Update(tag)
 }
 
-func (s *TagService) DeleteTag(tag *entities.Tag) error {
-	return s.TagRepo.Delete(tag)
+func (s *TagService) DeleteTag(tagID uint) error {
+
+	return s.TagRepo.Delete(tagID)
 }
 
 func (s *TagService) FindTagByID(tagID uint) (entities.Tag, error) {
