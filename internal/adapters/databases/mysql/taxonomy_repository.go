@@ -88,7 +88,6 @@ func (r *TaxonomyRepository) UpdateTagReferences(fromTagID, toTagID uint) error 
 }
 
 func (r *TaxonomyRepository) FindTaxonomiesByTagID(tagID uint) ([]entities.Taxonomy, error) {
-	// var relatedTags []entities.Tag
 	var taxonomies []entities.Taxonomy
 	var gormTaxonomies []models.GormTaxonomy
 
