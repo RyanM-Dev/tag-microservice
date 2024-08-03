@@ -37,6 +37,29 @@ type TagIDReq struct {
 	ID uint `json:"id" validate:"required"`
 }
 
+type MergeTagsReq struct {
+	FromTagID uint `json:"from_tag_id" validate:"required"`
+	ToTagID   uint `json:"to_tag_id" validate:"required"`
+}
+
+type AddTaxonomyReq struct {
+	FromTagID        uint   `json:"from_tag_id" validate:"required"`
+	ToTagID          uint   `json:"to_tag_id" validate:"required"`
+	RelationshipKind string `json:"relationship_kind" validate:"required"`
+	State            bool   `json:"state" validate:"required"`
+}
+type SetTaxonomyReq struct {
+	TaxonomyID       uint   `json:"taxonomy_id" validate:"required"`
+	RelationshipKind string `json:"relationship_kind" validate:"required" `
+}
+type GetRelatedTagsByKeyReq struct {
+	Key string `json:"key" validate:"required"`
+}
+type GetRelatedTagsByTitleAndKeyReq struct {
+	Title string `json:"title" validate:"required"`
+	Key   string `json:"key" validate:"required:"`
+}
+
 func CreateTagReqToTagEntity(req CreateTagReq) *entities.Tag {
 	return &entities.Tag{
 		Title:       req.Title,
