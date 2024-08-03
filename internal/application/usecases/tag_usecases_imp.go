@@ -23,8 +23,8 @@ func (use *TagUsecaseImp) UpdateTag(tag *entities.Tag) error {
 	return use.tagService.UpdateTag(tag)
 }
 
-func (use *TagUsecaseImp) DeleteTag(tag *entities.Tag) error {
-	return use.tagService.DeleteTag(tag)
+func (use *TagUsecaseImp) DeleteTag(tagID uint) error {
+	return use.tagService.DeleteTag(tagID)
 }
 
 func (use *TagUsecaseImp) GetTagByID(tagID uint) (*entities.Tag, error) {

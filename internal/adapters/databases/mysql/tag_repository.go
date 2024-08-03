@@ -47,8 +47,12 @@ func (r *TagRepository) UpdateTagState(tagID uint, accepted bool) error {
 	return nil
 }
 
-func (r *TagRepository) Delete(tag *entities.Tag) error {
-	gormTag := models.GormTagFromDomain(*tag)
+func (r *TagRepository) Delete(tagID uint) error {
+	tag, err := r.FindByID(tagID)
+	if err != nil {
+		return err
+	}
+	gormTag := models.GormTagFromDomain(tag)
 	if err := mysqlDB.db.Delete(&gormTag).Error; err != nil {
 		log.Println("failed to delete tag", err)
 	}

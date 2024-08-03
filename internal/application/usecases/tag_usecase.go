@@ -5,7 +5,7 @@ import "tagMicroservice/internal/domain/entities"
 type TagUsecase interface {
 	CreateTag(tag *entities.Tag) error
 	UpdateTag(tag *entities.Tag) error
-	DeleteTag(tag *entities.Tag) error
+	DeleteTag(tagID uint) error
 	GetTagByID(tagID uint) (*entities.Tag, error)
 	ApproveTag(tagID uint) error
 	RejectTag(tagID uint) error
