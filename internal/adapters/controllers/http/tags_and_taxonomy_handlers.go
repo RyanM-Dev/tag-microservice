@@ -13,7 +13,7 @@ type TagHandler struct {
 	tagUsecases usecases.TagUsecase
 }
 
-func (h *TagHandler) NewTagHandler(tagUsecases usecases.TagUsecase) *TagHandler {
+func NewTagHandler(tagUsecases usecases.TagUsecase) *TagHandler {
 	return &TagHandler{
 		tagUsecases: tagUsecases,
 	}

@@ -15,13 +15,28 @@ type Mysql struct {
 
 var mysqlDB Mysql
 
-func (m *Mysql) NewMysqlDatabase(dsn string) (*gorm.DB, error) {
-	log.Println("Database created")
+func (m *Mysql) NewMysqlDatabase(dsn string) error {
+	dsnWithoutDB := "root:831374@tcp(127.0.0.1:3306)/"
+	dbName := "tag-microservice"
+	tempDB, err := gorm.Open(mysql.Open(dsnWithoutDB), &gorm.Config{})
+	if err != nil {
+		return fmt.Errorf("error connecting to MySQL server: %v", err)
+	}
+	err = tempDB.Exec(fmt.Sprintf("CREATE DATABASE IF NOT EXISTS `%s`", dbName)).Error
+	if err != nil {
+		return fmt.Errorf("error creating database: %v", err)
+	}
 	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, fmt.Errorf("error creating database: %v", err)
+		return fmt.Errorf("error connecting to MySQL server: %v", err)
 	}
-	return gormDB, nil
+
+	m.db = gormDB
+	log.Println("Database created")
+	return nil
+}
+func (m *Mysql) GetDB() *gorm.DB {
+	return m.db
 }
 
 func (m *Mysql) AutoMigrate() error {

@@ -12,8 +12,8 @@ type TaxonomyService struct {
 	TaxonomyRepo repositories.TaxonomyRepository
 }
 
-func NewTaxonomyService(tagRepo repositories.TagRepository, taxonomyRepo repositories.TaxonomyRepository) *TagService {
-	return &TagService{
+func NewTaxonomyService(tagRepo repositories.TagRepository, taxonomyRepo repositories.TaxonomyRepository) *TaxonomyService {
+	return &TaxonomyService{
 		TagRepo:      tagRepo,
 		TaxonomyRepo: taxonomyRepo,
 	}

@@ -7,8 +7,8 @@ type GinWebServer struct {
 	tagHandler TagHandler
 }
 
-func NewGinWebServer() *GinWebServer {
-	var tagHandler TagHandler
+func NewGinWebServer(tagHandler TagHandler) *GinWebServer {
+
 	router := gin.New()
 	router.POST("/api/tags", tagHandler.CreateTag)
 	router.PUT("/api/tags", tagHandler.UpdateTag)

@@ -10,10 +10,11 @@ import (
 )
 
 type TaxonomyRepository struct {
+	gormDB *gorm.DB
 }
 
-func NewTaxonomyRepository() repositories.TaxonomyRepository {
-	return &TaxonomyRepository{}
+func NewTaxonomyRepository(gormDB *gorm.DB) repositories.TaxonomyRepository {
+	return &TaxonomyRepository{gormDB: gormDB}
 }
 
 func (r *TaxonomyRepository) Create(taxonomy *entities.Taxonomy) error {

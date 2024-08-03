@@ -10,10 +10,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type TagRepository struct{}
+type TagRepository struct {
+	gormDB *gorm.DB
+}
 
-func NewTagRepository() repositories.TagRepository {
-	return &TagRepository{}
+func NewTagRepository(gormDB *gorm.DB) repositories.TagRepository {
+	return &TagRepository{gormDB: gormDB}
 }
 
 func (r *TagRepository) Create(tag *entities.Tag) error {
