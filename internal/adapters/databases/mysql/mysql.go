@@ -13,8 +13,6 @@ type Mysql struct {
 	db *gorm.DB
 }
 
-var mysqlDB Mysql
-
 func (m *Mysql) NewMysqlDatabase(dsn string) error {
 	dsnWithoutDB := "root:831374@tcp(127.0.0.1:3306)/"
 	dbName := "tag-microservice"

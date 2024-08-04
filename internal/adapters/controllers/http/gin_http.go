@@ -23,7 +23,7 @@ func NewGinWebServer(tagHandler TagHandler) *GinWebServer {
 
 	router.GET("/api/related-tags/key", tagHandler.GetRelatedTagsByKey)
 	router.GET("/api/related-tags/id", tagHandler.GetRelatedTagsByID)
-	router.POST("/api/related-tags/search", tagHandler.GetRelatedTagsByTitleAndKey)
+	router.GET("/api/related-tags/search", tagHandler.GetRelatedTagsByTitleAndKey)
 
 	return &GinWebServer{router: router, tagHandler: tagHandler}
 }

@@ -20,7 +20,7 @@ func NewTagRepository(gormDB *gorm.DB) repositories.TagRepository {
 
 func (r *TagRepository) Create(tag *entities.Tag) error {
 	gormTag := models.GormTagFromDomain(*tag)
-	if err := mysqlDB.db.Create(&gormTag).Error; err != nil {
+	if err := r.gormDB.Create(&gormTag).Error; err != nil {
 		log.Println("failed to create tag", err)
 	}
 	tag.ID = gormTag.ID
@@ -29,7 +29,13 @@ func (r *TagRepository) Create(tag *entities.Tag) error {
 
 func (r *TagRepository) Update(tag *entities.Tag) error {
 	gormTag := models.GormTagFromDomain(*tag)
-	if err := mysqlDB.db.Save(&gormTag).Error; err != nil {
+	var databaseGormTag models.GormTag
+
+	if err := r.gormDB.First(&databaseGormTag, tag.ID).Error; err != nil {
+		return fmt.Errorf("failed to find tag to be updated: %v", err)
+	}
+	gormTag.CreatedAt = databaseGormTag.CreatedAt
+	if err := r.gormDB.Save(&gormTag).Error; err != nil {
 		log.Println("failed to update tag", err)
 	}
 	return nil
@@ -43,7 +49,7 @@ func (r *TagRepository) UpdateTagState(tagID uint, accepted bool) error {
 		return err
 	}
 	gormTag.State = accepted
-	if err := mysqlDB.db.Save(&gormTag).Error; err != nil {
+	if err := r.gormDB.Save(&gormTag).Error; err != nil {
 		return fmt.Errorf("failed to update tag state: %v", err)
 	}
 	return nil
@@ -55,7 +61,7 @@ func (r *TagRepository) Delete(tagID uint) error {
 		return err
 	}
 	gormTag := models.GormTagFromDomain(tag)
-	if err := mysqlDB.db.Delete(&gormTag).Error; err != nil {
+	if err := r.gormDB.Delete(&gormTag).Error; err != nil {
 		log.Println("failed to delete tag", err)
 	}
 	return nil
@@ -63,7 +69,7 @@ func (r *TagRepository) Delete(tagID uint) error {
 
 func (r *TagRepository) FindByID(id uint) (entities.Tag, error) {
 	var gormTag models.GormTag
-	if err := mysqlDB.db.Where("id=?", id).First(&gormTag).Error; err != nil {
+	if err := r.gormDB.Where("id=?", id).First(&gormTag).Error; err != nil {
 		log.Println("failed to find tag", err)
 	}
 	tag := gormTag.ToDomain()
@@ -72,7 +78,7 @@ func (r *TagRepository) FindByID(id uint) (entities.Tag, error) {
 
 func (r *TagRepository) FindByKey(key string) (entities.Tag, error) {
 	var gormTag models.GormTag
-	if err := mysqlDB.db.Where("key=?", key).First(&gormTag).Error; err != nil {
+	if err := r.gormDB.Where(" `key` = ?", key).First(&gormTag).Error; err != nil {
 		return entities.Tag{}, fmt.Errorf("failed to find tag by provided key: %v", err)
 	}
 	tag := gormTag.ToDomain()
