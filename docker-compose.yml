@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: 831374
       MYSQL_DATABASE: tag-microservice
     ports:
-      - "3307:3306"
+      - "3301:3306"
     volumes:
       - db_data:/var/lib/mysql
 
