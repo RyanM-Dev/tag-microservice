@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"tagMicroservice/internal/adapters/databases/models"
+	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -24,12 +25,20 @@ func (m *Mysql) NewMysqlDatabase(dsn string) error {
 	// if err != nil {
 	// 	return fmt.Errorf("error creating database: %v", err)
 	// }
-	gormDB, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		return fmt.Errorf("error connecting to MySQL server: %v", err)
+
+	var mysqlDB *gorm.DB
+	var err error
+
+	for i := 0; i < 10; i++ {
+		mysqlDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		if err == nil {
+			break
+		}
+		log.Printf("Failed to connect to database (attempt %d/10): %v", i+1, err)
+		time.Sleep(4 * time.Second)
 	}
 
-	m.db = gormDB
+	m.db = mysqlDB
 	log.Println("Database created")
 	return nil
 }
