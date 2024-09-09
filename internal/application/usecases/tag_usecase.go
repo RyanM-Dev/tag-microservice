@@ -15,4 +15,5 @@ type TagUsecase interface {
 	GetRelatedTagsByKey(key string) ([]entities.Tag, error)
 	GetRelatedTagsByID(tagID uint) ([]entities.Tag, error)
 	GetRelatedTagsByTitleAndKey(title, key string) ([]entities.Tag, error)
+	GetAllTags() ([]entities.Tag, error)
 }

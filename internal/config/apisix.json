@@ -1,0 +1,147 @@
+{
+  "routes": [
+    {
+      "id": 1,
+      "uri": "/api/tags",
+      "methods": ["POST"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 2,
+      "uri": "/api/tags",
+      "methods": ["PUT"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 3,
+      "uri": "/api/tags",
+      "methods": ["DELETE"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 4,
+      "uri": "/api/tags/id",
+      "methods": ["GET"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 5,
+      "uri": "/api/tags/approve",
+      "methods": ["POST"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 6,
+      "uri": "/api/tags/reject",
+      "methods": ["POST"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 7,
+      "uri": "/api/tags/merge",
+      "methods": ["POST"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 8,
+      "uri": "/api/taxonomies",
+      "methods": ["POST"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 9,
+      "uri": "/api/taxonomies",
+      "methods": ["PUT"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 10,
+      "uri": "/api/related-tags/key",
+      "methods": ["GET"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 11,
+      "uri": "/api/related-tags/id",
+      "methods": ["GET"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 12,
+      "uri": "/api/related-tags/search",
+      "methods": ["GET"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    },
+    {
+      "id": 13,
+      "uri": "/api/tags",
+      "methods": ["GET"],
+      "upstream": {
+        "type": "roundrobin",
+        "nodes": {
+          "192.168.8.105:8080": 1
+        }
+      }
+    }
+  ]
+}
