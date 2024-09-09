@@ -5,6 +5,7 @@ import (
 	"tagMicroservice/internal/adapters/controllers/requests"
 	"tagMicroservice/internal/adapters/controllers/response"
 	"tagMicroservice/internal/application/usecases"
+	"tagMicroservice/internal/domain/entities"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,7 +32,7 @@ func (h *TagHandler) CreateTag(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"status": "Tag created successfully"})
+	c.JSON(http.StatusCreated, gin.H{"status": "Tag created successfully", "id": tag.ID})
 
 }
 
@@ -195,4 +196,16 @@ func (h *TagHandler) GetRelatedTagsByTitleAndKey(c *gin.Context) {
 		"tags": tags,
 	})
 
+}
+
+func (h *TagHandler) GetAllTags(c *gin.Context) {
+	var allTags []entities.Tag
+	allTags, err := h.tagUsecases.GetAllTags()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(200, gin.H{
+		"tags": allTags,
+	})
 }

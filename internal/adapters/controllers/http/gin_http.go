@@ -1,6 +1,9 @@
 package http
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+)
 
 type GinWebServer struct {
 	router     *gin.Engine
@@ -24,6 +27,8 @@ func NewGinWebServer(tagHandler TagHandler) *GinWebServer {
 	router.GET("/api/related-tags/key", tagHandler.GetRelatedTagsByKey)
 	router.GET("/api/related-tags/id", tagHandler.GetRelatedTagsByID)
 	router.GET("/api/related-tags/search", tagHandler.GetRelatedTagsByTitleAndKey)
+	router.GET("/api/tags", tagHandler.GetAllTags)
+	router.GET("/metrics", gin.WrapH(promhttp.Handler()))
 
 	return &GinWebServer{router: router, tagHandler: tagHandler}
 }

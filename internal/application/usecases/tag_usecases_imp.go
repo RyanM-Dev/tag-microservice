@@ -109,3 +109,7 @@ func (use *TagUsecaseImp) GetRelatedTagsByTitleAndKey(title, key string) ([]enti
 	}
 	return relatedTagsByTitleAndKey, nil
 }
+
+func (use *TagUsecaseImp) GetAllTags() ([]entities.Tag, error) {
+	return use.tagService.GetAllTags()
+}

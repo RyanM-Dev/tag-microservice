@@ -128,3 +128,11 @@ func (s *TagService) GetRelatedTagsByTitleAndKey(title, key string) ([]entities.
 	}
 	return relatedTagsByTitle, nil
 }
+
+func (s *TagService) GetAllTags() ([]entities.Tag, error) {
+	tags, err := s.TagRepo.GetAllTags()
+	if err != nil {
+		return []entities.Tag{}, fmt.Errorf("failed to get tags: %v", err)
+	}
+	return tags, nil
+}

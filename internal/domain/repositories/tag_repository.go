@@ -9,5 +9,6 @@ type TagRepository interface {
 	FindByID(id uint) (entities.Tag, error)
 	FindByKey(key string) (entities.Tag, error)
 	UpdateTagState(tagID uint, accepted bool) error
+	GetAllTags() ([]entities.Tag, error)
 	// Merge(fromTagID, toTagID uint) error
 }

@@ -84,3 +84,16 @@ func (r *TagRepository) FindByKey(key string) (entities.Tag, error) {
 	tag := gormTag.ToDomain()
 	return tag, nil
 }
+
+func (r *TagRepository) GetAllTags() ([]entities.Tag, error) {
+	var gormTags []models.GormTag
+	if err := r.gormDB.Find(&gormTags).Error; err != nil {
+		return []entities.Tag{}, fmt.Errorf("failed to find tags %v", err)
+	}
+	var tags []entities.Tag
+	for _, gormTag := range gormTags {
+		tag := gormTag.ToDomain()
+		tags = append(tags, tag)
+	}
+	return tags, nil
+}
