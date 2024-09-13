@@ -23,6 +23,10 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: 831374
       MYSQL_DB: tag-microservice
-
+  jaeger:
+    image: jaegertracing/all-in-one:1.41
+    ports:
+      - "16686:16686" # Jaeger UI
+      - "4317:4317" # OTLP gRPC endpoint for OpenTelemetry
 volumes:
   mysql_data:

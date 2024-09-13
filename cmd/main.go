@@ -9,6 +9,9 @@ import (
 )
 
 func main() {
+	shutdown := initTracer()
+	defer shutdown()
+
 	var dsn = "root:831374@tcp(db:3306)/tag-microservice?charset=utf8mb4&parseTime=True&loc=Local"
 	var mysqlStruct mysql.Mysql
 
