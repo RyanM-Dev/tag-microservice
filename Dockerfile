@@ -11,8 +11,6 @@ RUN go mod download &&  go mod tidy
 COPY . .
 
 WORKDIR /app/cmd
-ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
 
 RUN go build -o main .
 
@@ -21,6 +19,7 @@ WORKDIR /app
 
 COPY --from=build /app/cmd/main .
 
+
 EXPOSE 8080
 
-CMD ["/wait-for-it.sh", "mysql-db:3306", "--", "./main"]
+CMD ["./main"]
