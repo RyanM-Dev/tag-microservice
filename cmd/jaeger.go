@@ -14,7 +14,7 @@ import (
 
 func initTracer() func() {
 	ctx := context.Background()
-	exporter, err := otlptracegrpc.New(ctx, otlptracegrpc.WithInsecure())
+	exporter, err := otlptracegrpc.New(ctx, otlptracegrpc.WithEndpoint("jaeger:4317"), otlptracegrpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("failed to create the collector trace exporter: %v", err)
 	}

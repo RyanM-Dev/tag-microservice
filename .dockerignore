@@ -30,3 +30,10 @@
 **/values.dev.yaml
 LICENSE
 README.md
+# Ignore everything except Go source files and mod files
+.git
+node_modules
+*.log
+*.md
+Dockerfile
+docker-compose.yml
