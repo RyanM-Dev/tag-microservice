@@ -20,6 +20,11 @@ WORKDIR /app
 
 COPY --from=build /app/cmd/main .
 
+FROM alpine:3.20.3
+WORKDIR /app
+
+COPY --from=build /app/cmd/main .
+
 EXPOSE 8080
 
 CMD ["./main"]
