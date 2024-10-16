@@ -1,0 +1,36 @@
+apisix:
+  node_listen: 9080 # Port that APISIX listens on
+  admin_listen: 9180 # for Admin API
+  enable_ipv6: false # Disable IPv6 support
+
+  enable_control: true # Enable the control API for APISIX
+  control:
+    ip: "0.0.0.0" # IP address for control API
+    port: 9092 # Port for control API
+
+deployment:
+  admin:
+    allow_admin: # Restrict access to the admin API
+      - 0.0.0.0/0 # For testing, allow access from any IP address
+
+    admin_key: # Authentication keys for the admin API
+      - name: "admin"
+        key: edd1c9f034335f136f87ad84b625c8f1 # Key for the admin role
+        role: admin # Admin role has full access to configuration
+
+      - name: "viewer"
+        key: 4054f7cf07e344346cd3f287985e76a2 # Key for the viewer role
+        role: viewer # Viewer role can only view configuration
+
+  etcd:
+    host: # List of etcd cluster hosts
+      - "http://etcd:2379" # Address of etcd server
+    prefix: "/apisix" # Prefix for APISIX configurations in etcd
+    timeout: 30 # Timeout for etcd requests (in seconds)
+
+plugin_attr:
+  prometheus:
+    export_addr:
+      ip: "0.0.0.0" # IP address where Prometheus metrics are exported
+      port: 9091 # Port where Prometheus metrics are exposed
+
