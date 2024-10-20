@@ -27,6 +27,8 @@ deployment:
       - "http://etcd:2379" # Address of etcd server
     prefix: "/apisix" # Prefix for APISIX configurations in etcd
     timeout: 30 # Timeout for etcd requests (in seconds)
+plugins:
+  - prometheus
 
 plugin_attr:
   prometheus:
