@@ -1,9 +1,10 @@
 global:
   scrape_interval: 15s
+
 scrape_configs:
   - job_name: "apisix"
     static_configs:
       - targets: ["apisix:9091"]
-  - job_name: "app"
+  - job_name: "tag-microservice"
     static_configs:
-      - targets: ["app:8080"]
+      - targets: ["tag-microservice:8080"]
