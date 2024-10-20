@@ -1,10 +1,19 @@
 global:
-  scrape_interval: 15s
+  scrape_interval: 1s
+  external_labels:
+    stack: "apisix"
 
 scrape_configs:
   - job_name: "apisix"
+    scrape_interval: 5s
+    metrics_path: "/apisix/prometheus/metrics"
     static_configs:
       - targets: ["apisix:9091"]
+  - job_name: "prometheus"
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["prometheus:9090"]
   - job_name: "tag-microservice"
     static_configs:
       - targets: ["tag-microservice:8080"]
